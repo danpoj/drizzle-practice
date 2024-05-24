@@ -1,3 +1,4 @@
+import { PostImage } from '@/components/post-image';
 import {
   Card,
   CardContent,
@@ -5,27 +6,24 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { db } from '@/db/drizzle';
-import { postTable } from '@/db/schema';
-import { cn } from '@/lib/utils';
-import { faker } from '@faker-js/faker';
-import { desc } from 'drizzle-orm';
-import Image from 'next/image';
-import { redirect } from 'next/navigation';
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import { db } from '@/db/drizzle';
+import { postTable } from '@/db/schema';
+import { cn } from '@/lib/utils';
+import { shimmer } from '@/shimmer';
+import { faker } from '@faker-js/faker';
+import { desc } from 'drizzle-orm';
+import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
-const shimmer =
-  'before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent';
-
-const limit = 20;
+const limit = 15;
 
 export default async function Page({
   searchParams: { page },
@@ -116,20 +114,7 @@ export default async function Page({
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div
-                className={cn(
-                  'relative aspect-square rounded-xl overflow-hidden bg-slate-100',
-                  shimmer
-                )}
-              >
-                <Image
-                  unoptimized
-                  src={post.image}
-                  fill
-                  alt='image'
-                  className='inset-0 absolute object-cover'
-                />
-              </div>
+              <PostImage key={post.image} image={post.image} />
             </CardContent>
           </Card>
         ))}
