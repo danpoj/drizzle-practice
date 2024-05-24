@@ -12,7 +12,7 @@ if (!('NEON_DATABASE_URL' in process.env))
 const main = async () => {
   const posts: (typeof postTable.$inferInsert)[] = [];
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 200; i++) {
     posts.push({
       id: faker.string.uuid(),
       username: faker.internet.userName(),
